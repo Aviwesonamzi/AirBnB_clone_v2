@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/8-places.css') }}">
+    <title>HBNB Filters</title>
+</head>
+<body>
+    <header>
+        <!-- Your header content -->
+    </header>
+    <div class="container">
+        <section id="filters">
+            <h3>States</h3>
+            <h4>&nbsp;</h4>
+            <!-- Loop through states and display them here -->
+            {% for state in states %}
+            <div class="state">
+                <h2>{{ state.name }}</h2>
+                <ul>
+                    {% for city in state.cities %}
+                    <li>{{ city.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </section>
+        <section id="filters">
+            <h3>Amenities</h3>
+            <h4>&nbsp;</h4>
+            <!-- Loop through amenities and display them here -->
+            {% for amenity in amenities %}
+            <div class="amenity">{{ amenity.name }}</div>
+            {% endfor %}
+        </section>
+        <section id="places">
+            <h1>Places</h1>
+            <!-- Loop through places and display them here -->
+            {% for place in places %}
+            <article>
+                <div class="title_box">
+                    <h2>{{ place.name }}</h2>
+                    <div class="price_by_night">${{ place.price_by_night }}</div>
+                </div>
+                <div class="information">
+                    <div class="max_guest">{{ place.max_guest }} Guests</div>
+                    <div class="number_rooms">{{ place.number_rooms }} Bedrooms</div>
+                    <div class="number_bathrooms">{{ place.number_bathrooms }} Bathrooms</div>
+                </div>
+                <div class="description">
+                    {{ place.description | safe }}
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+    </div>
+    <footer>
+        <!-- Your footer content -->
+    </footer>
+</body>
+</html>
