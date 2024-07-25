@@ -3,9 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models.city import City
 from os import getenv
-from models import storage
 
 class State(BaseModel, Base):
     """ State class """
@@ -16,7 +14,9 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def cities(self):
-            """Getter method for cities"""
+            """Getter method for cities in FileStorage mode"""
+            from models import storage
+            from models.city import City
             city_list = []
             for city in storage.all(City).values():
                 if city.state_id == self.id:
