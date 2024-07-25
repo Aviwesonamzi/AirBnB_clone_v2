@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HBNB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>HBNB</h1>
+        </div>
+    </header>
+    <div class="container">
+        <section class="filters">
+            <h3>States</h3>
+            <h4>&nbsp;</h4>
+            <div class="popover">
+                {% for state in states %}
+                <div class="state">
+                    <h4>{{ state.name }}</h4>
+                    <ul>
+                        {% for city in state.cities %}
+                        <li>{{ city.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+            <h3>Amenities</h3>
+            <h4>&nbsp;</h4>
+            <div class="popover">
+                {% for amenity in amenities %}
+                <div class="amenity">
+                    <input type="checkbox" id="{{ amenity.id }}">
+                    <label for="{{ amenity.id }}">{{ amenity.name }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2022 Holberton School</p>
+    </footer>
+</body>
+</html>
