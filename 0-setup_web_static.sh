@@ -3,8 +3,8 @@
 
 # Update and install Nginx if not already installed
 if ! dpkg -l | grep -q nginx; then
-    apt-get update -y
-    apt-get install nginx -y
+     apt-get update -y
+     apt-get install nginx -y
 fi
 
 # Create required directories if they do not already exist
