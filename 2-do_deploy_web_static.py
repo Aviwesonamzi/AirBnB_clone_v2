@@ -12,7 +12,7 @@ def do_deploy(archive_path):
     """Deploys an archive to the web servers."""
     if not os.path.exists(archive_path):
         return False
-    
+
     try:
         # Extract the file name without the directory path
         file_name = os.path.basename(archive_path)
@@ -24,7 +24,7 @@ def do_deploy(archive_path):
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, tmp_path)
 
-        # Uncompress the archive to the folder /data/web_static/releases/<archive filename without extension>
+        # Uncompress the archive to the folder
         run(f"mkdir -p {release_dir}")
         run(f"tar -xzf {tmp_path} -C {release_dir}")
 
@@ -38,12 +38,8 @@ def do_deploy(archive_path):
         # Delete the symbolic link /data/web_static/current
         run("rm -rf /data/web_static/current")
 
-        # Create a new symbolic link /data/web_static/current linked to the new version of your code
+        # Create a new symbolic link /data/web_static/current linked to the new version
         run(f"ln -s {release_dir} /data/web_static/current")
-
-        # Ensure the file is accessible
-        run(f"touch {release_dir}0-index.html")
-        run(f"touch {release_dir}my_index.html")
 
         return True
     except Exception as e:
