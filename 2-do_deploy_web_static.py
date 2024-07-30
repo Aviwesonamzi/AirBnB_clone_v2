@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Fabric script to distribute an archive to web servers
+"""
 
 from fabric.api import env, put, run
 import os
@@ -9,7 +12,7 @@ def do_deploy(archive_path):
     """Deploys an archive to the web servers."""
     if not os.path.exists(archive_path):
         return False
-
+    
     try:
         # Extract the file name without the directory path
         file_name = os.path.basename(archive_path)
@@ -35,8 +38,12 @@ def do_deploy(archive_path):
         # Delete the symbolic link /data/web_static/current
         run("rm -rf /data/web_static/current")
 
-        # Create a new the symbolic link /data/web_static/current linked to the new version of your code
+        # Create a new symbolic link /data/web_static/current linked to the new version of your code
         run(f"ln -s {release_dir} /data/web_static/current")
+
+        # Ensure the file is accessible
+        run(f"touch {release_dir}0-index.html")
+        run(f"touch {release_dir}my_index.html")
 
         return True
     except Exception as e:
